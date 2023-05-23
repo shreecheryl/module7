@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Container, Row, Col } from 'react-bootstrap'
 
 export default class EmployeeAdd extends React.Component {
     constructor() {
@@ -23,13 +23,27 @@ export default class EmployeeAdd extends React.Component {
     }
     render() {
         return (
-            <form name="employeeAdd" onSubmit={this.handleSubmit}>
-                Name: <input type="text" name="name" /><br />
-                Extension: <input type="text" name="ext" maxLength={4} /><br />
-                Email: <input type="text" name="email" /><br />
-                Title: <input type="text" name="title" /><br />
-                <Button type="submit" variant="primary" size="sm">Add Employee</Button>
-            </form>
+            <Container fluid>
+                <form name="employeeAdd" onSubmit={this.handleSubmit}>
+                    <Row>
+                        <Col md={3}>Name:</Col>
+                        <Col md="auto"><input type="text" name="name" /></Col>
+                    </Row>
+                    <Row>
+                        <Col md={3}>Extension:</Col>
+                        <Col md="auto"><input type="text" name="ext" maxLength={4} /></Col>
+                    </Row>
+                    <Row>
+                        <Col md={3}>Email:</Col>
+                        <Col md="auto"><input type="text" name="email" /></Col>
+                    </Row>
+                    <Row>
+                        <Col md={3}>Title:</Col>
+                        <Col md="auto"><input type="text" name="title" /></Col>
+                        <Button type="submit" variant="primary" size="sm" className="mt-4">Add Employee</Button>
+                    </Row>
+                </form>
+            </Container>
         )
     }
 }

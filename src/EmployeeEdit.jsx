@@ -1,10 +1,15 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Card, Container, Row, Col, Alert } from 'react-bootstrap'
 
 export default class EmployeeEdit extends React.Component {
     constructor() {
         super()
-        this.state = { employee: [] }
+        this.state = {
+            employee: [],
+            alertVisible: false,
+            alertColor: 'success',
+            alertMessage: '',
+        }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -50,31 +55,61 @@ export default class EmployeeEdit extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('message').innerHTML = data.msg
+            this.setState({
+                alertVisible: true,
+                alertMessage: data.msg,
+            }) 
         })
     }
 
     render() {
         return (
-            <form name="employeeUpdate" onSubmit={this.handleSubmit}>
-                <h1>Edit {this.state.employee.name}</h1>
-                ID:<br />
-                <input type="text" name="id" readOnly="readOnly" defaultValue={this.state.employee._id} /><br />
-                Name:<br />
-                <input type="text" name="name" defaultValue={this.state.employee.name} /><br />
-                Extension:<br />
-                <input type="text" name="extension" defaultValue={this.state.employee.extension} /><br />
-                Email:<br />
-                <input type="text" name="email" defaultValue={this.state.employee.email} /><br />
-                Title:<br />
-                <input type="text" name="title" defaultValue={this.state.employee.title} /><br />
-                Date Hired:<br />
-                <input type="text" name="dateHired" readOnly="readOnly" defaultValue={this.state.employee.dateHired} /><br />
-                Currently Employed:<br />
-                <input type="checkbox" name="currentlyEmployed" defaultChecked={this.state.employee.currentlyEmployed}/><br />
-                <Button type="submit" variant="primary" size="sm" className="mt-3">Update Employee</Button>
-                <p id="message"></p>
-            </form>  
+            <Card>
+                <Card.Header as="h5">Edit {this.state.employee.name}</Card.Header>
+                <Card.Body>
+                    <Card.Text>
+                        <Container fluid>
+                            <form name="employeeUpdate" onSubmit={this.handleSubmit}>
+                                <Row>
+                                    <Col md={2}>ID:</Col>
+                                    <Col md="auto"><input type="text" name="id" readOnly="readOnly" defaultValue={this.state.employee._id} /></Col>
+                                </Row>
+                                <Row>
+                                    <Col md={2}>Name:</Col>
+                                    <Col md="auto"><input type="text" name="name" defaultValue={this.state.employee.name} /></Col>
+                                </Row>
+                                <Row>
+                                    <Col md={2}>Extension:</Col>
+                                    <Col md="auto"><input type="text" name="extension" defaultValue={this.state.employee.extension} /></Col>
+                                </Row>
+                                <Row>
+                                    <Col md={2}>Email:</Col>
+                                    <Col md="auto"><input type="text" name="email" defaultValue={this.state.employee.email} /></Col>
+                                </Row>
+                                <Row>
+                                    <Col md={2}>Title:</Col>
+                                    <Col md="auto"><input type="text" name="title" defaultValue={this.state.employee.title} /></Col>
+                                </Row>
+                                <Row>
+                                    <Col md={2}>Date Hired:</Col>
+                                    <Col md="auto"><input type="text" name="dateHired" readOnly="readOnly" defaultValue={this.state.employee.dateHired} /></Col>
+                                </Row>
+                                <Row>
+                                    <Col md={2}>Currently Employed?</Col>
+                                    <Col md="auto"><input type="checkbox" name="currentlyEmployed" defaultChecked={this.state.employee.currentlyEmployed}/></Col>
+                                </Row>
+
+                                <Button type="submit" variant="primary" size="sm" className="my-3">Update Employee</Button>
+                                <Alert
+                                    variant={this.state.alertColor}
+                                    show={this.state.alertVisible}
+                                    onClose={() => this.setState({alertVisible: false})}
+                                    dismissible>{this.state.alertMessage}</Alert>
+                            </form>
+                        </Container>
+                    </Card.Text>
+                </Card.Body>
+        </Card>  
         )
     }   
 }

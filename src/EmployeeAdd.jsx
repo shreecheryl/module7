@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from 'react-bootstrap'
 
 export default class EmployeeAdd extends React.Component {
     constructor() {
@@ -27,7 +28,7 @@ export default class EmployeeAdd extends React.Component {
                 Extension: <input type="text" name="ext" maxLength={4} /><br />
                 Email: <input type="text" name="email" /><br />
                 Title: <input type="text" name="title" /><br />
-                <button>Add</button>
+                <Button type="submit" variant="primary" size="sm">Add Employee</Button>
             </form>
         )
     }

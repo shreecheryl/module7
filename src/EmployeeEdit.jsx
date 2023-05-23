@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from 'react-bootstrap'
 
 export default class EmployeeEdit extends React.Component {
     constructor() {
@@ -71,8 +72,7 @@ export default class EmployeeEdit extends React.Component {
                 <input type="text" name="dateHired" readOnly="readOnly" defaultValue={this.state.employee.dateHired} /><br />
                 Currently Employed:<br />
                 <input type="checkbox" name="currentlyEmployed" defaultChecked={this.state.employee.currentlyEmployed}/><br />
-                <br /><br />
-                <input type="submit" value="Update" />
+                <Button type="submit" variant="primary" size="sm" className="mt-3">Update Employee</Button>
                 <p id="message"></p>
             </form>  
         )

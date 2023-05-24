@@ -62,8 +62,7 @@ class EmployeeRow extends React.Component {
 
                     <Button variant="danger" size="sm" onClick={this.toggleModal}>X</Button>
                     </td>
-                </tr>
-                    
+                </tr>  
             </>
         )
     }

@@ -17,11 +17,6 @@ class EmployeeRow extends React.Component {
         this.setState({ modalVisible: !this.state.modalVisible, })
     }
 
-    onDeleteClick() {
-        this.toggleModal()
-        // this.props.deleteEmployee(this.props.employee._id)
-    }
-
     render() {
         return (
             <>

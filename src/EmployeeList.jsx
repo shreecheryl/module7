@@ -18,7 +18,8 @@ class EmployeeRow extends React.Component {
     }
 
     onDeleteClick() {
-        props.deleteEmployee(this.props.employee._id)
+        this.toggleModal()
+        // this.props.deleteEmployee(this.props.employee._id)
     }
 
     render() {
@@ -55,7 +56,10 @@ class EmployeeRow extends React.Component {
                                 variant="success"
                                 size="sm"
                                 className="mt-4"
-                                onClick={this.toggleModal}>
+                                onClick={() => {
+                                    this.toggleModal;
+                                    this.props.deleteEmployee(this.props.employee._id)
+                                }}>
                                     Yes
                             </Button>
                         </Modal.Footer>

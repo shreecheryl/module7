@@ -1,24 +1,73 @@
 import React from 'react'
-import { Badge, Button, Table, Card } from 'react-bootstrap'
+import { Badge, Button, Table, Card, Modal } from 'react-bootstrap'
 import { useLocation, Link} from 'react-router-dom'
 import EmployeeFilter from './EmployeeFilter.jsx'
 import EmployeeAdd from './EmployeeAdd.jsx'
 
-function EmployeeRow(props) {
-    function onDeleteClick() {
-        props.deleteEmployee(props.employee._id)
+class EmployeeRow extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            modalVisible: false,
+        }
+        this.toggleModal = this.toggleModal.bind(this)
     }
-    return (
-    <tr>
-        <td><Link to={`/edit/${props.employee._id}`}>{props.employee.name}</Link></td>
-        <td>{props.employee.extension}</td>
-        <td>{props.employee.email}</td>
-        <td>{props.employee.title}</td>
-        <td>{props.employee.dateHired.toDateString()}</td>
-        <td>{props.employee.currentlyEmployed ? 'Yes' : 'No'}</td>
-        <td><Button variant="danger" size="sm" onClick={onDeleteClick}>X</Button></td>
-    </tr>
-    )
+
+    toggleModal() {
+        this.setState({ modalVisible: !this.state.modalVisible, })
+    }
+
+    onDeleteClick() {
+        props.deleteEmployee(this.props.employee._id)
+    }
+
+    render() {
+        return (
+            <>
+                <tr>
+                    <td><Link to={`/edit/${this.props.employee._id}`}>{this.props.employee.name}</Link></td>
+                    <td>{this.props.employee.extension}</td>
+                    <td>{this.props.employee.email}</td>
+                    <td>{this.props.employee.title}</td>
+                    <td>{this.props.employee.dateHired.toDateString()}</td>
+                    <td>{this.props.employee.currentlyEmployed ? 'Yes' : 'No'}</td>
+                    <td>
+                    <Modal show={this.state.modalVisible} centered>
+                        <Modal.Header>
+                            <Modal.Title>Delete Employee?</Modal.Title>
+                        </Modal.Header>
+
+                        <Modal.Body>
+                            Are you sure you want to delete this employee?
+                        </Modal.Body>
+
+                        <Modal.Footer>
+                            <Button
+                                type="button"
+                                variant="danger"
+                                size="sm"
+                                className="mt-4"
+                                onClick={this.toggleModal}>
+                                    Cancel
+                            </Button>
+                            <Button
+                                type="button"
+                                variant="success"
+                                size="sm"
+                                className="mt-4"
+                                onClick={this.toggleModal}>
+                                    Yes
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+
+                    <Button variant="danger" size="sm" onClick={this.toggleModal}>X</Button>
+                    </td>
+                </tr>
+                    
+            </>
+        )
+    }
 }
 
 function EmployeeTable(props) {
